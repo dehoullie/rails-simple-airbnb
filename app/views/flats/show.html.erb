@@ -1,0 +1,64 @@
+<div class="img-bg"></div>
+<div class="container mt-4">
+  <%= link_to "Back to flats", flats_path, class: 'mb-3 btn btn-secondary' %>
+<div class="row">
+  <div class="col-md-8 mb-4">
+    <!-- Name + Address Block -->
+    <div class="card mb-3 bg-light border-0 shadow-sm">
+      <div class="card-body">
+        <!-- In app/views/flats/show.html.erb -->
+           <% if @image_url.present? %>
+            <img src="<%= @image_url %>" alt="Flat image" class="img-fluid mb-3">
+          <% end %>
+        <h4 class="card-title mb-1"><%= @flat.name %></h4>
+        <h6 class="card-subtitle text-muted"><%= @flat.address %></h6>
+      </div>
+    </div>
+
+    <!-- Description Block -->
+    <div class="card mb-3 bg-light border-0 shadow-sm">
+      <div class="card-body">
+        <h6 class="card-subtitle mb-2 text-muted">Description</h6>
+        <p class="card-text mb-0"><%= @flat.description %></p>
+      </div>
+    </div>
+
+    <!-- Details Block -->
+    <div class="card mb-3 bg-light border-0 shadow-sm">
+      <div class="card-body">
+        <h6 class="card-subtitle mb-2 text-muted">Details</h6>
+        <div class="d-flex justify-content-between flex-wrap">
+          <p class="card-text mb-2"><i class="fa-solid fa-money-bill"></i> <%= @flat.price_per_night %> per night</p>
+          <p class="card-text mb-2"><i class="fa-solid fa-person"></i> <%= @flat.number_of_guests %> guests</p>
+          <p class="card-text mb-2"><i class="fa-solid fa-bed"></i> <%= @flat.number_of_beds %> beds</p>
+          <p class="card-text mb-2"><i class="fa-solid fa-bath"></i> <%= @flat.number_of_toilets %> toilets</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- form with book dates From: to: -->
+  <div class="col-md-4 mb-4">
+
+    <div class="card bg-light border-0 shadow-sm">
+      <div class="card-body">
+        <h6 class="card-subtitle mb-2 text-muted">Book this flat</h6>
+        <%= form_with model: @flat, local: true do |form| %>
+          <div class="mb-3">
+            <%= form.label :start_date, "From:" %>
+            <%= form.date_field :start_date, class: 'form-control' %>
+          </div>
+          <div class="mb-3">
+            <%= form.label :end_date, "To:" %>
+            <%= form.date_field :end_date, class: 'form-control' %>
+          </div>
+          <%= form.submit "Book", class: 'btn btn-success w-100' %>
+        <% end %>
+      </div>
+    </div>
+</div>
+
+  <div class="col-md-12 mb-4 d-flex justify-content-between">
+    <%= link_to "Edit this flat", edit_flat_path(@flat), class: 'btn btn-outline-primary' %>
+    <%= button_to "Destroy this flat", @flat, data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: 'btn btn-outline-danger' %>
+  </div>
+</div>
